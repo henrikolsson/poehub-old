@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+{{ item_type.name }}
+<br>
+{% for reward in rewards %}
+{{ reward.quest.title }}, {{ reward.act }}, {{ reward.character.name }}<br>
+{% endfor %}
+{% endblock %}

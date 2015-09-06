@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% for skillgem in skillgems %}
+<a href="{% url 'skillgem' skillgem.id %}">{{ skillgem.name }}</a><br>
+{% endfor %}
+{% endblock %}
