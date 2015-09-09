@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^skillgem/([0-9]+)$', views.skillgem, name='skillgem'),
     url(r'^itemclass/?$', views.itemclasses, name='itemclasses'),
     url(r'^itemclass/([0-9]+)$', views.itemclass, name='itemclass'),
+    url(r'^quest/([0-9]+)$', views.quest, name='quest'),
 ]

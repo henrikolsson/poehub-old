@@ -22,6 +22,12 @@ class Quest(models.Model):
     id = models.IntegerField(primary_key=True)
     title = models.TextField()
     
+class QuestState(models.Model):
+    id = models.IntegerField(primary_key=True)
+    quest = models.ForeignKey(Quest)
+    message = models.TextField()
+    text = models.TextField()
+    
 class QuestReward(models.Model):
     base_item_type = models.ForeignKey(BaseItemType)
     quest = models.ForeignKey(Quest)
