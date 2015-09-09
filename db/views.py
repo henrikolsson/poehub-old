@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.db.models import Q
+from django.core.cache import cache
 from . import models
 
 def index(request):
@@ -11,7 +12,11 @@ def index(request):
         elif len(request.POST['query']) < 3:
             context['error'] = 'Query must be at least 3 characters'
         else:
-            context['result'] = models.BaseItemType.objects.filter(name__icontains=request.POST['query'])
+            query = request.POST['query']
+            context['result'] = cache.get(query)
+            if context['result'] is None:
+                context['result'] = models.BaseItemType.objects.filter(name__icontains=request.POST['query'])
+                cache.set(query, context['result'])
     return render(request, 'index.html', context)
 
 def skillgem(request, skill_id):
@@ -41,7 +46,6 @@ def skillgems(request):
 
 def itemclasses(request):
     context = {"item_classes": models.ItemClass.objects.all()}
-    print(context)
     return render(request, 'itemclasses.html', context)
 
 
