@@ -38,7 +38,7 @@ def main():
         ItemClass.objects.all().delete()
         cursor.execute("ALTER SEQUENCE db_itemclass_id_seq RESTART")
         for item_class in item_classes:
-            item = ItemClass(id=item_class['Unknown3'], name=item_class["Name"])
+            item = ItemClass(id=item_class['Id'], name=item_class["Name"])
             item.save()
         
         base_items = dat.parse("Data/BaseItemTypes.dat")
@@ -59,13 +59,16 @@ def main():
         QuestReward.objects.all().delete()
         cursor.execute("ALTER SEQUENCE db_questreward_id_seq RESTART")
         for reward in quest_rewards:
-            if reward['Unknown4'] < 0:
-                print("weird character reference: %s" % reward['Unknown4'])
+            if reward['CharactersKey'] < 0:
+                print("weird character reference: %s" % reward['CharactersKey'])
                 continue
-            item = QuestReward(base_item_type_id=reward['ItemKey'],
+            if reward['CharactersKey'] > 10:
+                print("weird character reference: %s" % reward['CharactersKey'])
+                continue
+            item = QuestReward(base_item_type_id=reward['BaseItemTypesKey'],
                                quest_id=reward['QuestKey'],
-                               act=reward['Unknown2'],
-                               character_id=reward['Unknown4'])
+                               act=reward['Difficulty'],
+                               character_id=reward['CharactersKey'])
             item.save()
             
 if __name__ == "__main__":
