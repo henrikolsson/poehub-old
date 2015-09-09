@@ -1,9 +1,47 @@
 {% extends "base.html" %}
 
 {% block content %}
-{{ item_type.name }}
-<br>
-{% for reward in rewards %}
-{{ reward.quest.title }}, {{ reward.act }}, {{ reward.character.name }}<br>
-{% endfor %}
+<h2>{{ item_type.name }}</h1>
+
+{% if meta %}
+<p>{{ meta.description }}</p>
+<img src="{{ meta.image }}">
+{% endif %}
+<h3>Quest rewards</h3>
+<table>
+  <tr>
+    <th>Quest</th>
+    <th>Difficulty</th>
+    <th>Character</th>
+  </tr>
+  {% for reward in rewards %}
+  <tr>
+    <td>{{ reward.quest.title }}</td>
+    {% if reward.act == 1 %}
+    <td>Normal</td>
+    {% elif reward.act == 2 %}
+    <td>Cruel</td>
+    {% elif reward.act == 3 %}
+    <td>Merciless</td>
+    {% else %}
+    <td>?</td>
+    {% endif %}
+    <td>{{ reward.character.name }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+<h3>Experience levels</h3>
+<table>
+  <tr>
+    <th>Level</th>
+    <th>Experience</th>
+  </tr>
+  {% for level in levels %}
+  <tr>
+    <td>{{ level.level }}</td>
+    <td>{{ level.experience }}</td>
+  </tr>
+  {% endfor %}
+</table>
 {% endblock %}

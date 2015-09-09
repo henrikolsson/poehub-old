@@ -16,12 +16,19 @@ def index(request):
 
 def skillgem(request, skill_id):
     # TODO: Filter by correct item class
-    item_type = models.BaseItemType.objects.get(pk=skill_id, )
+    item_type = models.BaseItemType.objects.get(pk=skill_id)
     if item_type is None:
         return HttpResponseNotFound('<h1>Page not found</h1>')
     rewards = models.QuestReward.objects.filter(base_item_type=item_type)
+    try:
+        meta = models.ActiveSkill.objects.get(name=item_type.name)
+    except models.ActiveSkill.DoesNotExist:
+        meta = None
+    levels = models.ItemExperiencePerLevel.objects.filter(base_item_type=item_type).order_by('level')
     context = {"rewards": rewards,
-               "item_type": item_type}
+               "item_type": item_type,
+               "meta": meta,
+               "levels": levels}
     return render(request, 'skillgem.html', context)
 
 
@@ -30,3 +37,16 @@ def skillgems(request):
                                                     Q(item_class_id=20)))
     context = {"skillgems": skillgems}
     return render(request, 'skillgems.html', context)
+
+def itemclasses(request):
+    context = {"item_classes": models.ItemClass.objects.all()}
+    print(context)
+    return render(request, 'itemclasses.html', context)
+
+
+def itemclass(request, item_class_id):
+    items = models.BaseItemType.objects.filter(item_class_id = item_class_id)
+    if items is None or len(items) == 0:
+        return HttpResponseNotFound('<h1>Page not found</h1>')
+    context = {"items": items}
+    return render(request, 'itemclass.html', context)

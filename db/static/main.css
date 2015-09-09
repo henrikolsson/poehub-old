@@ -10,3 +10,15 @@ body {
     font-weight: bold;
 }
 
+table {
+    width: 100%;
+}
+
+th {
+    text-align: center;
+}
+
+th, td {
+    padding: 5px;
+    border: 1px solid black;
+}
