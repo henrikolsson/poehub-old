@@ -20,9 +20,10 @@ def skillgem(request, skill_id):
     if item_type is None:
         return HttpResponseNotFound('<h1>Page not found</h1>')
     rewards = models.QuestReward.objects.filter(base_item_type=item_type)
-    try:
-        meta = models.ActiveSkill.objects.get(name=item_type.name)
-    except models.ActiveSkill.DoesNotExist:
+    meta = models.ActiveSkill.objects.filter(name=item_type.name)
+    if len(meta) > 0:
+        meta = meta[0]
+    else:
         meta = None
     levels = models.ItemExperiencePerLevel.objects.filter(base_item_type=item_type).order_by('level')
     context = {"rewards": rewards,
