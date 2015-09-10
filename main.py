@@ -63,6 +63,13 @@ def main():
                          title=quests[idx]["Title"])
             item.save()
 
+        states = dat.parse("Data/QuestStates.dat")
+        QuestState.objects.all().delete()
+        for idx in range(len(states)):
+            state = states[idx]
+            item = QuestState(id=idx, quest_id=state['QuestKey'], message=state['Message'], text=state['Text'])
+            item.save()
+
         active_skills = dat.parse("Data/ActiveSkills.dat")
         ActiveSkill.objects.all().delete()
         for idx in range(len(active_skills)):

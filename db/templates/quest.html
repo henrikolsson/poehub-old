@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>{{ quest.name }}</h1>
+
+<h3>States</h3>
+<table>
+  <tr>
+    <th>Message</th>
+    <th>Text</th>
+  </tr>
+  {% for state in states %}
+  <tr>
+    <td>{{ state.message }}</td>
+    <td>{{ state.text }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

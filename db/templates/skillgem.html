@@ -16,7 +16,7 @@
   </tr>
   {% for reward in rewards %}
   <tr>
-    <td>{{ reward.quest.title }}</td>
+    <td><a href="{% url 'quest' reward.quest.id %}">{{ reward.quest.title }}</a></td>
     {% if reward.difficulty == 1 %}
     <td>Normal</td>
     {% elif reward.difficulty == 2 %}

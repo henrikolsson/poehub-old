@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^itemclass/?$', views.itemclasses, name='itemclasses'),
     url(r'^itemclass/([0-9]+)$', views.itemclass, name='itemclass'),
     url(r'^mod/?$', views.mods, name='mods'),
+    url(r'^quest/([0-9]+)$', views.quest, name='quest'),
 ]

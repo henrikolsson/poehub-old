@@ -21,8 +21,9 @@ def index(request):
 
 def skillgem(request, skill_id):
     # TODO: Filter by correct item class
-    item_type = models.BaseItemType.objects.get(pk=skill_id)
-    if item_type is None:
+    try:
+        item_type = models.BaseItemType.objects.get(pk=skill_id)
+    except models.BaseItemType.DoesNotExist:
         return HttpResponseNotFound('<h1>Page not found</h1>')
     rewards = models.QuestReward.objects.filter(base_item_type=item_type)
     meta = models.ActiveSkill.objects.filter(name=item_type.name)
@@ -51,7 +52,7 @@ def itemclasses(request):
 
 def itemclass(request, item_class_id):
     items = models.BaseItemType.objects.filter(item_class_id = item_class_id)
-    if items is None or len(items) == 0:
+    if len(items) == 0:
         return HttpResponseNotFound('<h1>Page not found</h1>')
     context = {"items": items}
     return render(request, 'itemclass.html', context)
@@ -64,3 +65,14 @@ def mods(request):
     context = {"prefixes": prefixes,
                "suffixes": suffixes}
     return render(request, 'mods.html', context)
+
+def quest(request, quest_id):
+    try:
+        quest = models.Quest.objects.get(pk=quest_id)
+    except models.Quest.DoesNotExist:
+        return HttpResponseNotFound('<h1>Page not found</h1>')
+
+    states = models.QuestState.objects.filter(quest_id=quest_id).order_by('-id')
+    context = {"quest": quest,
+               "states": states}
+    return render(request, 'quest.html', context)
