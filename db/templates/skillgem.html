@@ -17,11 +17,11 @@
   {% for reward in rewards %}
   <tr>
     <td>{{ reward.quest.title }}</td>
-    {% if reward.act == 1 %}
+    {% if reward.difficulty == 1 %}
     <td>Normal</td>
-    {% elif reward.act == 2 %}
+    {% elif reward.difficulty == 2 %}
     <td>Cruel</td>
-    {% elif reward.act == 3 %}
+    {% elif reward.difficulty == 3 %}
     <td>Merciless</td>
     {% else %}
     <td>?</td>

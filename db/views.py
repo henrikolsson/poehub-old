@@ -55,3 +55,12 @@ def itemclass(request, item_class_id):
         return HttpResponseNotFound('<h1>Page not found</h1>')
     context = {"items": items}
     return render(request, 'itemclass.html', context)
+
+def mods(request):
+    prefixes = models.Mod.objects.filter(Q(generation_type=1) &
+                                         Q(modtag__isnull=False)).distinct()
+    suffixes = models.Mod.objects.filter(Q(generation_type=2) &
+                                         Q(modtag__isnull=False)).distinct()
+    context = {"prefixes": prefixes,
+               "suffixes": suffixes}
+    return render(request, 'mods.html', context)
