@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% for quest in quests %}
+{% if not quest.title == "" %}
+<a href="{% url 'quest' quest.id %}">{{ quest.title }}</a><br>
+{% endif %}
+{% endfor %}
+{% endblock %}

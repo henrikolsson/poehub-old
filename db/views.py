@@ -82,3 +82,8 @@ def quest(request, quest_id):
     context = {"quest": quest,
                "states": states}
     return render(request, 'quest.html', context)
+
+
+def quests(request):
+    context = {"quests": models.Quest.objects.all().order_by("id")}
+    return render(request, 'quests.html', context)
