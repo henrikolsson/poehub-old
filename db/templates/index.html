@@ -12,12 +12,20 @@
   </div>
   <button type="submit" class="btn btn-default">Search</button>
 </form><br>
-{% for item in result %}
+{% for item in result.items %}
 {% if item.item_class_id == 19 or item.item_class_id == 20 %}
-<a href="/skillgem/{{ item.id }}">{{ item.name }}</a><br>
+Item: <a href="/skillgem/{{ item.id }}">{{ item.name }}</a><br>
 {% else %}
-{{ item.name }} <br>
+Item: {{ item.name }} <br>
 {% endif %}
 {% endfor %} 
+
+{% for quest in result.quests %}
+Quest: <a href="/quest/{{ quest.id }}">{{ quest.title }}</a><br>
+{% endfor %}
+
+{% for mod in result.mods %}
+Mod: {{ mod.name }}<br>
+{% endfor %}
 
 {% endblock %}

@@ -15,8 +15,14 @@ def index(request):
             query = request.POST['query']
             context['result'] = cache.get(query)
             if context['result'] is None:
-                context['result'] = models.BaseItemType.objects.filter(name__icontains=request.POST['query'])
-                cache.set(query, context['result'])
+                items = models.BaseItemType.objects.filter(name__icontains=request.POST['query'])
+                quests = models.Quest.objects.filter(title__icontains=request.POST['query'])
+                mods = models.Mod.objects.filter(name__icontains=request.POST['query'])
+                result = {"items": items,
+                          "quests": quests,
+                          "mods": mods}
+                context["result"] = result
+                cache.set(query, result)
     return render(request, 'index.html', context)
 
 def skillgem(request, skill_id):
