@@ -9,6 +9,7 @@ from dat.dat import Dat
 from db.models import *
 from django.db import transaction, connection
 import django
+import os.path, time
 
 # def main():
 #     if len(sys.argv) == 1:
@@ -144,6 +145,13 @@ def main():
                 item = ModTag(mod_id = idx,
                               tag_id = tag_key)
                 item.save()
+
+    # Assume they are all the same..
+    item = Meta(key='content_timestamp',
+                value=time.strftime("%a, %d %b %Y %H:%M:%S +0000", time.gmtime(os.path.getmtime('Data/Characters.dat'))))
+    item.save()
+
+
 if __name__ == "__main__":
     main()
 

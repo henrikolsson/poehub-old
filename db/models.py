@@ -68,3 +68,7 @@ class ModTag(models.Model):
     mod = models.ForeignKey(Mod)
     tag = models.ForeignKey(Tag)
     
+class Meta(models.Model):
+    key = models.TextField(primary_key=True)
+    value = models.TextField()
+

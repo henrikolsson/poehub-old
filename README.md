@@ -1,7 +1,6 @@
 # poehub
 
-
-Web-based interface for the data in Content.ggpk.
+Web-based interface for the data in Content.ggpk. Hosted here: [https://poehub.fixme.se/](https://poehub.fixme.se/).
 
 [![Build Status](https://travis-ci.org/henrikolsson/poehub.svg)](https://travis-ci.org/henrikolsson/poehub)
 
@@ -26,3 +25,4 @@ Insert data into database:
 Run web:
 
     $ python manage.py runserver
+

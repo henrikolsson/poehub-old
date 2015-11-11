@@ -2,10 +2,13 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.db.models import Q
 from django.core.cache import cache
+from dealer.git import git
 from . import models
 
 def index(request):
-    context = {}
+    context = {"git_tag": git.tag,
+               "git_revision": git.revision,
+               "content_timestamp": models.Meta.objects.get(pk="content_timestamp").value}
     if request.method == 'POST':
         if not 'query' in request.POST:
             context['error'] = 'Invalid query'

@@ -28,4 +28,5 @@ Quest: <a href="/quest/{{ quest.title }}">{{ quest.title }}</a><br>
 Mod: {{ mod.name }}<br>
 {% endfor %}
 
+<p>application version: {{ git_tag }}, content timestamp: {{ content_timestamp }}</p>
 {% endblock %}
