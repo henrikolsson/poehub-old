@@ -9,7 +9,6 @@
     <th>stat2</th>
     <th>stat3</th>
     <th>stat4</th>    
-    <th>tags</th>
   </tr>
   {% for prefix in prefixes %}
   <tr>
@@ -17,11 +16,6 @@
     {% for modstat in prefix.modstat_set.all %}
     <td>{{ modstat.stat_min }} - {{ modstat.stat_max }} ({{ modstat.stat.text }})</td>
     {% endfor %}    
-    <td>
-      {% for modtag in prefix.modtag_set.all %}
-      {{ modtag.tag.key }}, 
-      {% endfor %}
-    </td>
   </tr>
   {% endfor %}
 </table>
@@ -34,7 +28,6 @@
     <th>stat2</th>
     <th>stat3</th>
     <th>stat4</th>
-    <th>tags</th>
   </tr>
   {% for suffix in suffixes %}
   <tr>
@@ -42,11 +35,6 @@
     {% for modstat in suffix.modstat_set.all %}
     <td>{{ modstat.stat_min }} - {{ modstat.stat_max }} ({{ modstat.stat.text }})</td>
     {% endfor %}
-    <td>
-      {% for modtag in suffix.modtag_set.all %}
-      {{ modtag.tag.key }}, 
-      {% endfor %}
-    </td>
   </tr>
   {% endfor %}
 </table>

@@ -2,6 +2,8 @@
 
 {% block content %}
 {% for itemclass in item_classes %}
-<a href="{% url 'itemclass' itemclass.id %}">{{ itemclass.name }}</a><br>
+{% if not itemclass.name == "" %}
+<a href="{% url 'itemclass' itemclass.name %}">{{ itemclass.name }}</a><br>
+{% endif %}
 {% endfor %}
 {% endblock %}

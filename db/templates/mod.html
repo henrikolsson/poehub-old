@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3>Tags</h3>
+{% for tag in tags %}
+<a href="/mod/{{ tag.key }}">{{ tag.key }}</a><br>
+{% endfor %}
+
+{% endblock %}
+

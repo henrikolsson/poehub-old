@@ -78,3 +78,13 @@ class GGPK:
             pass
         else:
             print("unknown: %s" % entry_type)
+
+
+if __name__ == "__main__": 
+    if len(sys.argv) == 1:
+        print("usage: %s <file>" % sys.argv[0])
+    else:
+        fn = sys.argv[1]
+        print("parsing %s..." % fn)
+        ggpk = GGPK(fn)
+        ggpk.read()

@@ -25,10 +25,10 @@ def index(request):
                 cache.set(query, result)
     return render(request, 'index.html', context)
 
-def skillgem(request, skill_id):
+def skillgem(request, skill_name):
     # TODO: Filter by correct item class
     try:
-        item_type = models.BaseItemType.objects.get(pk=skill_id)
+        item_type = models.BaseItemType.objects.get(Q(name=skill_name))
     except models.BaseItemType.DoesNotExist:
         return HttpResponseNotFound('<h1>Page not found</h1>')
     rewards = models.QuestReward.objects.filter(base_item_type=item_type)
@@ -47,38 +47,43 @@ def skillgem(request, skill_id):
 
 def skillgems(request):
     skillgems = models.BaseItemType.objects.filter((Q(item_class_id=19) | 
-                                                    Q(item_class_id=20)))
+                                                    Q(item_class_id=20))).order_by('name')
     context = {"skillgems": skillgems}
     return render(request, 'skillgems.html', context)
 
 def itemclasses(request):
-    context = {"item_classes": models.ItemClass.objects.all()}
+    context = {"item_classes": models.ItemClass.objects.all().order_by('name')}
     return render(request, 'itemclasses.html', context)
 
 
-def itemclass(request, item_class_id):
-    items = models.BaseItemType.objects.filter(item_class_id = item_class_id)
+def itemclass(request, item_class):
+    items = models.BaseItemType.objects.filter(item_class__name = item_class)
     if len(items) == 0:
         return HttpResponseNotFound('<h1>Page not found</h1>')
     context = {"items": items}
     return render(request, 'itemclass.html', context)
 
-def mods(request):
+def mod(request):
+    tags = models.Tag.objects.all().order_by('key')
+    context = {"tags": tags}
+    return render(request, 'mod.html', context)
+
+def mods(request, tag_key):
     prefixes = models.Mod.objects.filter(Q(generation_type=1) &
-                                         Q(modtag__isnull=False)).distinct()
+                                         Q(modtag__tag__key=tag_key)).distinct()
     suffixes = models.Mod.objects.filter(Q(generation_type=2) &
-                                         Q(modtag__isnull=False)).distinct()
+                                         Q(modtag__tag__key=tag_key)).distinct()
     context = {"prefixes": prefixes,
                "suffixes": suffixes}
     return render(request, 'mods.html', context)
 
-def quest(request, quest_id):
+def quest(request, quest_name):
     try:
-        quest = models.Quest.objects.get(pk=quest_id)
+        quest = models.Quest.objects.get(Q(title=quest_name))
     except models.Quest.DoesNotExist:
         return HttpResponseNotFound('<h1>Page not found</h1>')
 
-    states = models.QuestState.objects.filter(quest_id=quest_id).order_by('-id')
+    states = models.QuestState.objects.filter(quest_id=quest.id).order_by('-id')
     context = {"quest": quest,
                "states": states}
     return render(request, 'quest.html', context)

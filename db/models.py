@@ -6,11 +6,11 @@ class Character(models.Model):
     
 class ItemClass(models.Model):
     id = models.IntegerField(primary_key=True)
-    name = models.TextField()
+    name = models.TextField(db_index=True)
     
 class BaseItemType(models.Model):
     id = models.IntegerField(primary_key=True)
-    name = models.TextField()
+    name = models.TextField(db_index=True)
     item_class = models.ForeignKey(ItemClass)
     
 class ItemExperiencePerLevel(models.Model):
@@ -21,7 +21,7 @@ class ItemExperiencePerLevel(models.Model):
 
 class Quest(models.Model):
     id = models.IntegerField(primary_key=True)
-    title = models.TextField()
+    title = models.TextField(db_index=True)
     
 class QuestState(models.Model):
     id = models.IntegerField(primary_key=True)
@@ -62,7 +62,7 @@ class ModStat(models.Model):
 
 class Tag(models.Model):
     id = models.IntegerField(primary_key=True)
-    key = models.TextField()
+    key = models.TextField(db_index=True)
     
 class ModTag(models.Model):
     mod = models.ForeignKey(Mod)

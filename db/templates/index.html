@@ -14,14 +14,14 @@
 </form><br>
 {% for item in result.items %}
 {% if item.item_class_id == 19 or item.item_class_id == 20 %}
-Item: <a href="/skillgem/{{ item.id }}">{{ item.name }}</a><br>
+Item: <a href="/skillgem/{{ item.name }}">{{ item.name }}</a><br>
 {% else %}
 Item: {{ item.name }} <br>
 {% endif %}
 {% endfor %} 
 
 {% for quest in result.quests %}
-Quest: <a href="/quest/{{ quest.id }}">{{ quest.title }}</a><br>
+Quest: <a href="/quest/{{ quest.title }}">{{ quest.title }}</a><br>
 {% endfor %}
 
 {% for mod in result.mods %}

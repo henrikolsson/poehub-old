@@ -2,6 +2,7 @@
 import os
 os.environ['DJANGO_SETTINGS_MODULE'] = 'poehub.settings'
 
+import re
 import sys
 from ggpk.ggpk import GGPK
 from dat.dat import Dat
@@ -59,6 +60,8 @@ def main():
         quests = dat.parse("Data/Quest.dat")
         Quest.objects.all().delete()
         for idx in range(len(quests)):
+            if quests[idx]["IsQuest"] == False:
+                continue
             item = Quest(id=idx,
                          title=quests[idx]["Title"])
             item.save()
