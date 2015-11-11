@@ -79,7 +79,7 @@ def mods(request, tag_key):
 
 def quest(request, quest_name):
     try:
-        quest = models.Quest.objects.get(Q(title=quest_name))
+        quest = models.Quest.objects.filter(Q(title=quest_name)).first()
     except models.Quest.DoesNotExist:
         return HttpResponseNotFound('<h1>Page not found</h1>')
 
@@ -90,5 +90,5 @@ def quest(request, quest_name):
 
 
 def quests(request):
-    context = {"quests": models.Quest.objects.all().order_by("id")}
+    context = {"quests": models.Quest.objects.all().order_by("title")}
     return render(request, 'quests.html', context)
