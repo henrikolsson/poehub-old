@@ -35,16 +35,21 @@ def skillgem(request, skill_name):
     except models.BaseItemType.DoesNotExist:
         return HttpResponseNotFound('<h1>Page not found</h1>')
     rewards = models.QuestReward.objects.filter(base_item_type=item_type)
-    meta = models.ActiveSkill.objects.filter(name=item_type.name)
+    meta = models.ActiveSkill.objects.filter(name=skill_name)
     if len(meta) > 0:
         meta = meta[0]
     else:
         meta = None
     levels = models.ItemExperiencePerLevel.objects.filter(base_item_type=item_type).order_by('level')
+    if meta is not None:
+        effects = models.GrantedEffectsPerLevel.objects.filter(activeskill_id=meta.id).order_by('level')
+    else:
+        effects = []
     context = {"rewards": rewards,
                "item_type": item_type,
                "meta": meta,
-               "levels": levels}
+               "levels": levels,
+               "effects": effects}
     return render(request, 'skillgem.html', context)
 
 

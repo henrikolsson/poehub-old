@@ -48,9 +48,11 @@ class Mod(models.Model):
     domain = models.IntegerField()
     generation_type = models.IntegerField()
     key = models.TextField()
+    level = models.IntegerField()
     
 class Stat(models.Model):
     id = models.IntegerField(primary_key=True)
+    code = models.TextField()
     text = models.TextField()
     
 class ModStat(models.Model):
@@ -72,3 +74,14 @@ class Meta(models.Model):
     key = models.TextField(primary_key=True)
     value = models.TextField()
 
+class GrantedEffectsPerLevel(models.Model):
+    activeskill = models.ForeignKey(ActiveSkill)
+    level = models.IntegerField()
+
+class GrantedEffectsPerLevelStat(models.Model):
+    granted_effects_per_level = models.ForeignKey(GrantedEffectsPerLevel)
+    index = models.IntegerField()
+    value = models.IntegerField()
+    stat = models.ForeignKey(Stat, null=True)
+    class Meta:
+        ordering = ['index']

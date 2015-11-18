@@ -44,4 +44,28 @@
   </tr>
   {% endfor %}
 </table>
+
+<h3>Effects</h3>
+<table>
+  <tr>
+    <th>level</th>
+    {% if effects|length > 0 %}
+    {% for grantedstat in effects.0.grantedeffectsperlevelstat_set.all %}
+    {% if grantedstat.stat.code|length > 0 %}
+    <th>{{ grantedstat.stat.code }}</th>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+  </tr>
+  {% for effect in effects %}
+  <tr>
+    <td>{{ effect.level }}</td>
+  {% for grantedstat in effect.grantedeffectsperlevelstat_set.all %}
+  {% if grantedstat.stat.code|length > 0 %}
+    <td>{{ grantedstat.value }}</tD>
+  {% endif %}
+  {% endfor %}
+  </tr>
+  {% endfor %}
+</table>
 {% endblock %}
